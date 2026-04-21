@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SYHA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1 id="title">SmartYouth Health Assistant</h1>
+        <p id="subtitle">AI-powered support for youth health</p>
+
+        <!-- Language Switch -->
+        <button onclick="setLanguage('en')">English</button>
+        <button onclick="setLanguage('rw')">Kinyarwanda</button>
+    </header>
+
+    <section class="chat-box">
+        <h2 id="ask">Ask your health question anonymously</h2>
+        <input type="text" id="userInput" placeholder="Type your question...">
+        <button onclick="respond()" id="askBtn">Ask</button>
+
+        <p id="response"></p>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
