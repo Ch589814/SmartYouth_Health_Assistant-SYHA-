@@ -49,7 +49,7 @@ syha/
 
 ## 🚀 Live Demo
 
-> Coming soon — deployment in progress via GitHub Pages
+👉 **[https://ch589814.github.io/SmartYouth_Health_Assistant-SYHA-/](https://ch589814.github.io/SmartYouth_Health_Assistant-SYHA-/)**
 
 ---
 
