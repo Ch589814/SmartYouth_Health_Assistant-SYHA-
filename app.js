@@ -52,7 +52,7 @@ function setLanguage(lang) {
 }
 
 const GEMINI_API_KEY = "gen-lang-client-0785578932";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 async function respond() {
     const input = document.getElementById("userInput").value.trim();
@@ -90,6 +90,7 @@ async function respond() {
         });
 
         const data = await res.json();
+        console.log("Gemini response:", data);
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || (currentLang === "rw" ? "Mbabarira, hari ikibazo. Gerageza nanone." : "Sorry, something went wrong. Please try again.");
 
         typing.innerText = reply;
