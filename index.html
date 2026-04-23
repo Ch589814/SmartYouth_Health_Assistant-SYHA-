@@ -3,28 +3,63 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>SYHA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYHA – SmartYouth Health Assistant</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">💚 SYHA</div>
+        <div class="lang-toggle">
+            <button onclick="setLanguage('en')" id="btn-en" class="lang-btn active">English</button>
+            <button onclick="setLanguage('rw')" id="btn-rw" class="lang-btn">Kinyarwanda</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
         <h1 id="title">SmartYouth Health Assistant</h1>
-        <p id="subtitle">AI-powered support for youth health</p>
-
-        <!-- Language Switch -->
-        <button onclick="setLanguage('en')">English</button>
-        <button onclick="setLanguage('rw')">Kinyarwanda</button>
-    </header>
-
-    <section class="chat-box">
-        <h2 id="ask">Ask your health question anonymously</h2>
-        <input type="text" id="userInput" placeholder="Type your question...">
-        <button onclick="respond()" id="askBtn">Ask</button>
-
-        <p id="response"></p>
+        <p id="subtitle">Safe, anonymous, and stigma-free health support for young people in Rwanda.</p>
+        <a href="#chat" class="hero-btn" id="heroBtn">Ask a Question</a>
     </section>
+
+    <!-- TOPIC CARDS -->
+    <section class="topics">
+        <div class="card">
+            <span>🧠</span>
+            <h3 id="card1-title">Mental Health</h3>
+            <p id="card1-desc">Stress, anxiety, depression support and coping strategies.</p>
+        </div>
+        <div class="card">
+            <span>❤️</span>
+            <h3 id="card2-title">Reproductive Health</h3>
+            <p id="card2-desc">HIV prevention, contraception, and reproductive wellbeing.</p>
+        </div>
+        <div class="card">
+            <span>🌸</span>
+            <h3 id="card3-title">Menstrual Health</h3>
+            <p id="card3-desc">Menstruation education, hygiene, and period support.</p>
+        </div>
+    </section>
+
+    <!-- CHAT SECTION -->
+    <section class="chat-section" id="chat">
+        <h2 id="chatTitle">Ask your health question anonymously</h2>
+        <div class="chat-window" id="chatWindow"></div>
+        <div class="chat-input-row">
+            <input type="text" id="userInput" placeholder="Type your question..." onkeydown="if(event.key==='Enter') respond()">
+            <button onclick="respond()" id="askBtn">Send ➤</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p id="footerText">© 2026 SYHA – SmartYouth Health Assistant | iAccelerator Phase 7 | Rwanda</p>
+    </footer>
 
     <script src="app.js"></script>
 </body>
