@@ -51,8 +51,8 @@ function setLanguage(lang) {
     document.getElementById("btn-rw").classList.toggle("active", lang === "rw");
 }
 
-const GEMINI_API_KEY = "AIzaSyBI-uO6ECzZZ5hd-NaKmPNb_tw7Yw3iVIU";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const OPENROUTER_KEY = "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";
+const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 async function respond() {
     const input = document.getElementById("userInput").value.trim();
@@ -79,19 +79,20 @@ async function respond() {
         : "Reply in English only. You are a youth health assistant for young people in Rwanda. Give clear, detailed, accurate and helpful answers about sexual and reproductive health, HIV prevention, menstrual health, mental health, and related topics. Be friendly, informative and non-judgmental.";
 
     try {
-        const res = await fetch(GEMINI_URL, {
+        const res = await fetch(API_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${OPENROUTER_KEY}`
+            },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: `${langInstruction}\n\nQuestion: ${input}` }]
-                }]
+                model: "google/gemma-3-4b-it:free",
+                messages: [{ role: "user", content: `${langInstruction}\n\nQuestion: ${input}` }]
             })
         });
 
         const data = await res.json();
-        console.log("Gemini response:", data);
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || (currentLang === "rw" ? "Mbabarira, hari ikibazo. Gerageza nanone." : "Sorry, something went wrong. Please try again.");
+        const reply = data.choices?.[0]?.message?.content || (currentLang === "rw" ? "Mbabarira, hari ikibazo. Gerageza nanone." : "Sorry, something went wrong. Please try again.");
 
         typing.innerText = reply;
     } catch (e) {
