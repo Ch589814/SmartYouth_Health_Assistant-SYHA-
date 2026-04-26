@@ -52,7 +52,7 @@ function setLanguage(lang) {
 }
 
 const GEMINI_API_KEY = "AIzaSyBI-uO6ECzZZ5hd-NaKmPNb_tw7Yw3iVIU";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 async function respond() {
     const input = document.getElementById("userInput").value.trim();
