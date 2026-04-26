@@ -51,7 +51,7 @@ function setLanguage(lang) {
     document.getElementById("btn-rw").classList.toggle("active", lang === "rw");
 }
 
-const GEMINI_API_KEY = "gen-lang-client-0785578932";
+const GEMINI_API_KEY = "AIzaSyBI-uO6ECzZZ5hd-NaKmPNb_tw7Yw3iVIU";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 async function respond() {
