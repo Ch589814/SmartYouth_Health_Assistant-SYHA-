@@ -74,8 +74,9 @@ const kb = {
           ans: "Early signs of pregnancy include: missed period, nausea (especially in the morning), breast tenderness, fatigue, frequent urination, and light spotting. If you think you may be pregnant: ✅ Take a home pregnancy test (available at pharmacies — very affordable). ✅ The best time to test is 1 week after a missed period. ✅ If positive, visit a health center immediately to start prenatal care. Early prenatal care protects both mother and baby. 🏥" },
         { keys: ["contraception","birth control","family planning","avoid pregnancy","not get pregnant"],
           ans: "Contraception options available in Rwanda: 💊 Pills — taken daily, very effective. 💉 Injection (Depo-Provera) — every 3 months. 🔵 Implant — inserted in arm, lasts 3–5 years. 🔄 IUD — inserted in uterus, lasts 5–10 years. 🛡️ Condom — also prevents STIs. All these are available FREE at government health centers. Visit a health worker to choose the best option for your body and lifestyle. No method is 100% except abstinence. ✅" },
-        { keys: ["sti","std","sexually transmitted","infection sex","chlamydia","gonorrhea","syphilis"],
-          ans: "STIs (Sexually Transmitted Infections) include HIV, chlamydia, gonorrhea, syphilis, and herpes. Many STIs have NO symptoms — you can have one without knowing. Signs may include: unusual discharge, burning when urinating, sores or rashes on genitals, or lower abdominal pain. Prevention: always use a condom. Testing: get tested at any health center — it is confidential. Most STIs are curable with antibiotics if caught early. Don't ignore symptoms! 🏥" },
+        { keys: ["sti","std","iminsa","indwara zandurira","indwara z'imibonano","gusamiraho","ibimenyetso by'indwara","sexually transmitted","infection sex","chlamydia","gonorrhea","syphilis","discharge","burning urine","sores genitals"],
+          ans: "Indwara zandurira mu mibonano mpuzabitsina (STIs) ni nka HIV, chlamydia, gonorrhea, syphilis, na herpes. Indwara nyinshi nta bimenyetso zigira — ushobora kuzifite utabizi. Ibimenyetso bishobora kugaragara: gusohora ibintu bitari bisanzwe mu myanya ndangagitsina, gutwika igihe ujya ku musarani, ibikomere cyangwa ibisebe ku myanya ndangagitsina, cyangwa ububabare mu nda yo hasi. Kugirango umenye niba ufite indwara: jya kwa muganga ngo wipimishe — ni bwihishwa kandi ubuntu. Kwirinda: koresha condom buri gihe. Indwara nyinshi zivurwa neza niba zabonetse vuba. Ntukihorera niba ubona ibimenyetso! 🏥",
+          ans_en: "STIs (Sexually Transmitted Infections) include HIV, chlamydia, gonorrhea, syphilis, and herpes. Many STIs have NO symptoms — you can have one without knowing. Signs may include: unusual discharge, burning when urinating, sores or rashes on genitals, or lower abdominal pain. To know if you have an STI: get tested at any health center — it is confidential and free. Prevention: always use a condom. Most STIs are curable with antibiotics if caught early. Do not ignore symptoms!" },
         { keys: ["puberty","body change","growing up","teenage body"],
           ans: "Puberty is the natural process where your body changes from a child to an adult. In girls (usually 8–13): breasts develop, hips widen, pubic hair grows, periods begin. In boys (usually 9–14): voice deepens, muscles grow, facial hair appears, testicles and penis grow. These changes are completely normal. Mood swings and skin changes (acne) are also common. If you have questions about your body changes, you can always ask here anonymously. 💚" },
         { keys: ["stress","stressed","overwhelmed","too much pressure","burnout"],
@@ -150,17 +151,19 @@ function getAnswer(input, lang) {
     const lower = input.toLowerCase();
     const list = kb[lang];
     for (const item of list) {
-        if (item.keys.some(k => lower.includes(k))) return item.ans;
+        if (item.keys.some(k => lower.includes(k))) {
+            return item.ans;
+        }
     }
-    // fallback: try English kb if rw not found
-    if (lang === "rw") {
-        for (const item of kb.en) {
-            if (item.keys.some(k => lower.includes(k))) return item.ans;
+    // fallback: search English kb
+    for (const item of kb.en) {
+        if (item.keys.some(k => lower.includes(k))) {
+            return item.ans_en || item.ans;
         }
     }
     return lang === "rw"
-        ? "Murakoze kubaza. Ubu ntabwo mfite igisubizo gisobanutse ku kibazo cyawe. Gerageza kubaza mu buryo butandukanye, cyangwa baza ikibazo nka: 'HIV ni iki?', 'imihango', 'stress', 'gutwita', 'contraception', 'anxiety', cyangwa 'condom'. 💚"
-        : "Thank you for your question. Try asking about specific topics like: 'What is HIV?', 'period pain', 'stress', 'pregnancy', 'contraception', 'anxiety', 'condom', or 'depression'. I am here to help! 💚";
+        ? "Murakoze kubaza. Gerageza kubaza mu buryo butandukanye, urugero: 'HIV ni iki?', 'imihango', 'stress', 'gutwita', 'contraception', 'anxiety', 'indwara zandurira', cyangwa 'condom'."
+        : "Thank you for your question. Try asking about: 'What is HIV?', 'period pain', 'stress', 'pregnancy', 'contraception', 'anxiety', 'STI', 'condom', or 'depression'. I am here to help!";
 }
 
 async function respond() {
