@@ -13,7 +13,7 @@ const text = {
         card2Title: "Reproductive Health",
         card2Desc: "HIV prevention, contraception, menstrual health, and reproductive wellbeing.",
 
-        footer: "© 2026 SYHA – SmartYouth Health Assistant | iAccelerator Phase 7 | Rwanda"
+        footer: "© 2026 SYHA – SmartYouth Health Assistant"
     },
     rw: {
         title: "Umufasha w'Ubuzima ku Rubyiruko",
@@ -27,7 +27,7 @@ const text = {
         card2Title: "Ubuzima bw'Imyororokere",
         card2Desc: "Kwirinda HIV, contraception, imihango, n'ubuzima bw'imyororokere.",
 
-        footer: "© 2026 SYHA – Umufasha w'Ubuzima ku Rubyiruko | iAccelerator Phase 7 | Rwanda"
+        footer: "© 2026 SYHA – Umufasha w'Ubuzima ku Rubyiruko"
     }
 };
 
