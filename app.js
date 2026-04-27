@@ -186,7 +186,7 @@ async function respond() {
 
     // Step 1: Try local knowledge base first
     const localAnswer = getAnswer(input, currentLang);
-    const isDefault = localAnswer.includes("Try asking about") || localAnswer.includes("Gerageza kubaza");
+    const isDefault = localAnswer.startsWith("Thank you for your question. Try") || localAnswer.startsWith("Murakoze kubaza. Gerageza");
 
     if (!isDefault) {
         typing.innerHTML = formatAnswer(localAnswer);
@@ -194,10 +194,10 @@ async function respond() {
         return;
     }
 
-    // Step 2: Try AI fallback
+    // Step 2: Always try AI for unknown questions
     const langInstruction = currentLang === "rw"
         ? "Subiza mu Kinyarwanda gusa. Uri umufasha w'ubuzima ku rubyiruko rwo mu Rwanda. Tanga ibisubizo birambuye, byizewe kandi bifasha ku bijyanye n'ubuzima bw'imyororokere, HIV, imihango, no gukumira indwara, ndetse n'ubuzima bwo mu mutwe."
-        : "Reply in English only. You are a youth health assistant for young people in Rwanda. Give clear, detailed, accurate and helpful answers about sexual and reproductive health, HIV prevention, menstrual health, mental health, and related topics. Be friendly and non-judgmental.";
+        : "You are SYHA, a youth health assistant for young people in Rwanda. Give clear, detailed, accurate and helpful answers about health, mental health, sexual and reproductive health, and general wellbeing. Be friendly and non-judgmental. Reply in English.";
 
     try {
         const res = await fetch(API_URL, {
@@ -215,7 +215,11 @@ async function respond() {
 
         const data = await res.json();
         const aiReply = data.choices?.[0]?.message?.content;
-        typing.innerHTML = formatAnswer(aiReply || localAnswer);
+        if (aiReply && aiReply.trim().length > 10) {
+            typing.innerHTML = formatAnswer(aiReply);
+        } else {
+            typing.innerHTML = formatAnswer(localAnswer);
+        }
     } catch (e) {
         typing.innerHTML = formatAnswer(localAnswer);
     }
