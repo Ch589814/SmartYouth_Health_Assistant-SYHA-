@@ -51,8 +51,8 @@ function setLanguage(lang) {
     document.getElementById("btn-rw").classList.toggle("active", lang === "rw");
 }
 
-const OPENROUTER_KEY = "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";
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+const HF_TOKEN = "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";
+const API_URL = "https://router.huggingface.co/cerebras/v1/chat/completions";
 
 const kb = {
     en: [
@@ -204,13 +204,12 @@ async function respond() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${OPENROUTER_KEY}`,
-                "HTTP-Referer": "https://ch589814.github.io",
-                "X-Title": "SYHA"
+                "Authorization": `Bearer ${HF_TOKEN}`
             },
             body: JSON.stringify({
-                model: "google/gemma-3-4b-it:free",
-                messages: [{ role: "user", content: `${langInstruction}\n\nQuestion: ${input}` }]
+                model: "llama3.1-8b",
+                messages: [{ role: "user", content: `${langInstruction}\n\nQuestion: ${input}` }],
+                max_tokens: 500
             })
         });
 
