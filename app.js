@@ -131,6 +131,21 @@ const kb = {
     ]
 };
 
+function formatAnswer(text) {
+    return text
+        .replace(/✅|💊|🛡️|❤️|💙|🌿|💚|🌸|🏥|📅|🆘|😴|🥗|🏃|💉|🔵|🔄|⚠️|🔴|✔️/g, "")
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .split("\n")
+        .map(line => {
+            line = line.trim();
+            if (!line) return "";
+            if (line.match(/^\d+\)/)) return `<p style="margin:6px 0">${line}</p>`;
+            if (line.startsWith("-") || line.startsWith("•")) return `<p style="margin:4px 0 4px 10px">— ${line.replace(/^[-•]\s*/, "")}</p>`;
+            return `<p style="margin:6px 0">${line}</p>`;
+        })
+        .join("");
+}
+
 function getAnswer(input, lang) {
     const lower = input.toLowerCase();
     const list = kb[lang];
@@ -162,7 +177,7 @@ async function respond() {
 
     const typing = document.createElement("div");
     typing.className = "bubble bot";
-    typing.innerText = currentLang === "rw" ? "Ndatekereza..." : "Thinking...";
+    typing.innerHTML = currentLang === "rw" ? "Ndatekereza..." : "Thinking...";
     chatWindow.appendChild(typing);
     chatWindow.scrollTop = chatWindow.scrollHeight;
 
@@ -171,7 +186,7 @@ async function respond() {
     const isDefault = localAnswer.includes("Try asking about") || localAnswer.includes("Gerageza kubaza");
 
     if (!isDefault) {
-        typing.innerText = localAnswer;
+        typing.innerHTML = formatAnswer(localAnswer);
         chatWindow.scrollTop = chatWindow.scrollHeight;
         return;
     }
@@ -198,10 +213,9 @@ async function respond() {
 
         const data = await res.json();
         const aiReply = data.choices?.[0]?.message?.content;
-        typing.innerText = aiReply || localAnswer;
+        typing.innerHTML = formatAnswer(aiReply || localAnswer);
     } catch (e) {
-        // Step 3: If AI fails, show local default message
-        typing.innerText = localAnswer;
+        typing.innerHTML = formatAnswer(localAnswer);
     }
 
     chatWindow.scrollTop = chatWindow.scrollHeight;
